@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Parse the PT DCM Body Paint monthly statements (ACCURATE 'Neraca' + 'Laba/Rugi', text layer of the PDFs)
-into data/<yyyy-mm>.json. One statement per month; the Sep–Oct 2025 file holds two columns.
+into data/<yyyy-mm>.json. One statement per month (data/raw/<yyyy-mm>.txt is discovered automatically);
+the Sep–Oct 2025 file holds two columns.
 
 Every leaf account is kept with its booked name. Parent (header) accounts are dropped. The parser asserts
 that leaf accounts re-add to the booked subtotals (sales, discounts, COGS, selling, G&A, opex, other, net)
@@ -172,32 +173,59 @@ def parse_file(name, col, ncol_bs, ncol_pl, month_key):
     close(dep, g('Biaya Penyusutan & Amortisasi'), 'depreciation leaves')
     return rec
 
-FILES = [  # (file, column index, month key)
-    ('2025-09-10.txt', 0, '2025-09'), ('2025-09-10.txt', 1, '2025-10'),
-    ('2025-11.txt', 0, '2025-11'), ('2025-12.txt', 0, '2025-12'),
-    ('2026-01.txt', 0, '2026-01'), ('2026-02.txt', 0, '2026-02'), ('2026-03.txt', 0, '2026-03'),
-    ('2026-04.txt', 0, '2026-04'), ('2026-05.txt', 0, '2026-05'), ('2026-06.txt', 0, '2026-06'),
-    ('2026-07.txt', 0, '2026-07'), ('2026-08.txt', 0, '2026-08'), ('2026-09.txt', 0, '2026-09'),
-]
+SPECIAL = {'2025-09-10.txt': [(0, '2025-09'), (1, '2025-10')]}   # opening-period file: one statement with two month columns
+RAW_NAME = re.compile(r'^(\d{4})-(0[1-9]|1[0-2])\.txt$')
 
-if __name__ == '__main__':
+def discover(raw_dir):
+    """Every data/raw/<yyyy-mm>.txt is one statement for that month (+ the special two-column file), sorted by month."""
+    found = []
+    for name in sorted(os.listdir(raw_dir)):
+        if name in SPECIAL:
+            found += [(name, col, key) for col, key in SPECIAL[name]]
+        elif RAW_NAME.match(name):
+            found.append((name, 0, name[:-4]))
+    found.sort(key=lambda t: t[2])
+    keys = [k for _, _, k in found]
+    assert len(keys) == len(set(keys)), f'duplicate month in raw files: {keys}'
+    return found
+
+def consecutive(a, b):
+    ya, ma = int(a[:4]), int(a[5:])
+    return (ya * 12 + ma) + 1 == int(b[:4]) * 12 + int(b[5:])
+
+def main(argv):
+    global RAW
+    raw_dir, data_dir = RAW, os.path.join(HERE, 'data')
+    args = list(argv)
+    while args:
+        opt = args.pop(0)
+        if opt == '--raw-dir': raw_dir = args.pop(0)
+        elif opt == '--data-dir': data_dir = args.pop(0)
+        else: sys.exit(f'unknown option {opt}')
+    RAW = raw_dir
+    os.makedirs(data_dir, exist_ok=True)
     prev = None
     RECON = []
-    for f, col, key in FILES:
+    for f, col, key in discover(raw_dir):
         rec = parse_file(f, col, 1, 2, key)
-        json.dump(rec, open(os.path.join(HERE, 'data', f'{key}.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+        json.dump(rec, open(os.path.join(data_dir, f'{key}.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
         P = rec['pl']; B = rec['bs']
-        # roll-forwards across months
-        if prev is not None:
+        # roll-forwards across consecutive months only
+        if prev is not None and consecutive(prev['month'], key):
             dep = sum(rec['ga_accounts'].get(k, 0) for k in ('Biaya Penyusutan Gedung', 'Biaya Penyusutan Peralatan Kantor', 'Biaya Penyusutan Peralatan Bengkel'))
             d_acc = prev['bs']['AKUMULASI PENYUSUTAN'] - B['AKUMULASI PENYUSUTAN']
             if abs(d_acc - dep) >= 2:   # a real inconsistency in the books, not a parsing error: record it, do not hide it
                 RECON.append({'month': key, 'test': 'akumulasi penyusutan vs beban penyusutan', 'bs_movement': d_acc, 'pl_charge': dep, 'gap': dep - d_acc})
-            if key.startswith('2026') and prev['month'].startswith('2026'):
+            if key >= '2026-02':   # equity roll-forward is tested from Feb 2026 (the opening year's equity moved for other reasons)
                 gap = B['Jumlah Ekuitas'] - (prev['bs']['Jumlah Ekuitas'] + P['net_profit'])
                 if abs(gap) >= 10:   # equity moved by more than the month's result: an adjustment posted straight to equity
                     RECON.append({'month': key, 'test': 'mutasi ekuitas (ekuitas awal + laba rugi = ekuitas akhir)', 'expected': prev['bs']['Jumlah Ekuitas'] + P['net_profit'], 'booked': B['Jumlah Ekuitas'], 'gap': gap})
+        elif prev is not None:
+            print(f"WARNING: {prev['month']} -> {key} are not consecutive months; roll-forward tests skipped for {key}")
         prev = rec
         print(f"{key}  sales {P['sales']['total']/1e6:8.1f}  net rev {P['net_revenue']/1e6:8.1f}  GP {P['gross_profit']/1e6:7.1f}  opex {P['opex']/1e6:7.1f}  net {P['net_profit']/1e6:8.1f}  | FA cost {B['AKTIVA TETAP']/1e6:8.1f}  accdep {B['AKUMULASI PENYUSUTAN']/1e6:8.1f}  equity {B['Jumlah Ekuitas']/1e6:8.1f}  | ga leaves {len(rec['ga_accounts'])} sell {len(rec['selling_accounts'])}")
-    json.dump(RECON, open(os.path.join(HERE, 'data', 'recon_exceptions.json'), 'w'), indent=1)
+    json.dump(RECON, open(os.path.join(data_dir, 'recon_exceptions.json'), 'w'), indent=1)
     print('all months parsed and reconciled; exceptions:', RECON)
+
+if __name__ == '__main__':
+    main(sys.argv[1:])
