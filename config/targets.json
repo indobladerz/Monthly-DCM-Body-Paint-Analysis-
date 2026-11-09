@@ -1,0 +1,29 @@
+{
+ "_note": "Asumsi dan ambang analisis untuk build_report.py. Ini bukan data laporan; ubah di sini, bukan di skrip. Skenario D/E hanya dibuat bila target bulanan lebih besar dari penjualan bruto bulan yang dilaporkan.",
+ "scenario": {
+  "target_gross_monthly": 400000000,
+  "volume_uplift": 0.25,
+  "cash_opex_uplift": 0.10,
+  "equipment_life_alt_years": 8,
+  "idle_cash_rate_pa": 0.05
+ },
+ "policy": {
+  "third_party_share_target": 0.40,
+  "third_party_tier_threshold_jasa": 150000000,
+  "third_party_tier_high": 0.45,
+  "incentive_cap_of_gross_sales": 0.08,
+  "discount_cap_of_gross_sales": 0.07,
+  "approval_threshold": 5000000,
+  "receivable_max_days": 60,
+  "volume_step": 100000000
+ },
+ "analysis": {
+  "equity_test_from": "2026-02",
+  "severity_high_pct_of_net_sales": 0.10,
+  "severity_medium_pct_of_net_sales": 0.03,
+  "mover_min_pct_of_opex": 0.02,
+  "intercompany_tolerance_rp": 1000,
+  "rate_spread_tolerance": 0.005,
+  "max_findings": 12
+ }
+}

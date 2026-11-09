@@ -11,6 +11,7 @@ and that the balance sheet balances, so a transcription error cannot pass silent
 import re, sys, json, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+EQ_FROM = json.load(open(os.path.join(HERE, 'config', 'targets.json'), encoding='utf-8'))['analysis']['equity_test_from']
 RAW = os.path.join(HERE, 'data', 'raw')
 NUM = re.compile(r'^-?\d{1,3}(?:\.\d{3})*,\d{2}$')
 
@@ -216,7 +217,7 @@ def main(argv):
             d_acc = prev['bs']['AKUMULASI PENYUSUTAN'] - B['AKUMULASI PENYUSUTAN']
             if abs(d_acc - dep) >= 2:   # a real inconsistency in the books, not a parsing error: record it, do not hide it
                 RECON.append({'month': key, 'test': 'akumulasi penyusutan vs beban penyusutan', 'bs_movement': d_acc, 'pl_charge': dep, 'gap': dep - d_acc})
-            if key >= '2026-02':   # equity roll-forward is tested from Feb 2026 (the opening year's equity moved for other reasons)
+            if key >= EQ_FROM:   # equity roll-forward is tested from config analysis.equity_test_from (the opening year's equity moved for other reasons)
                 gap = B['Jumlah Ekuitas'] - (prev['bs']['Jumlah Ekuitas'] + P['net_profit'])
                 if abs(gap) >= 10:   # equity moved by more than the month's result: an adjustment posted straight to equity
                     RECON.append({'month': key, 'test': 'mutasi ekuitas (ekuitas awal + laba rugi = ekuitas akhir)', 'expected': prev['bs']['Jumlah Ekuitas'] + P['net_profit'], 'booked': B['Jumlah Ekuitas'], 'gap': gap})
