@@ -32,11 +32,9 @@ sales report and should not carry it.
 - Planned recipients of the emailed report: vwilliam@toyotadutacendana.com,
   adh@toyotadutacendana.com, accspv.dca@gmail.com, bm@toyotadutacendana.com,
   sm.bp@toyotadutacendana.com, sm.jts.dca@gmail.com.
-- Not yet automated: `build_report.py` is written for the Jul–Sep 2026 quarter
-  (month lists, labels and several narrative figures are fixed in the script),
-  and `data/raw/group_inhouse.json` holds main-dealership figures that were
-  transcribed by hand from the Inhouse statements. Both need work before an
-  unattended run can produce an October report.
+- The pipeline now builds the report for the newest month in `data/` (see
+  "How it works"). `config/baseline.txt` holds the last period already analysed
+  and emailed (`2026-09`); a run must never email a period <= that.
 
 | File | What it is |
 |---|---|
@@ -44,24 +42,79 @@ sales report and should not carry it.
 | `out/report.pdf` | A4 print of the same report |
 | `out/metrics.json` | Every headline figure, scenario, break-even and intercompany gap, as computed |
 | `parse_dcm.py` | Parses the statements' text layer into one JSON per month and reconciles each one |
-| `data/raw/*.txt` | Text layer of the thirteen statements (Sep 2025 – Sep 2026), as extracted from the PDFs |
-| `data/raw/group_inhouse.json` | Main-dealership figures (sales, receivable from the unit, head-office clearing, deposits) from the Inhouse statements, Jul–Sep 2026 |
+| `data/raw/*.txt` | Text layer of the statements (Sep 2025 – Sep 2026), as extracted from the PDFs; one file per month, discovered by name `<yyyy-mm>.txt` (`2025-09-10.txt` holds two columns) |
+| `data/raw/group_inhouse.json` | Main-dealership figures (sales, receivable from the unit, head-office clearing, deposits) from the Inhouse statements, Jul–Sep 2026; keys `YYYY-MM` (legacy `jul`/`aug`/`sep` = 2026), optional per month |
 | `data/<yyyy-mm>.json` | The parsed figures, one file per month |
 | `data/recon_exceptions.json` | The three places where the books do not roll forward (Nov 2025 depreciation; Jul/Aug 2026 equity) |
-| `build_report.py` | Computes the analysis and writes `out/report.html` |
+| `build_report.py` | Computes the analysis for the newest month (or `--month YYYY-MM`) and writes `out/report.html` and `out/metrics.json` |
+| `normalize_drive_text.py` | Turns the Drive connector's text for a statement PDF into `data/raw/<yyyy-mm>.txt` |
+| `check_period.py` | Offline guard: does `data/<period>.json` exist, and is the period newer than `config/baseline.txt` |
+| `config/targets.json` | Scenario target, policy assumptions and analysis thresholds (not report data) |
+| `config/baseline.txt` | Last period already analysed (`2026-09`) |
 | `render_pdf.js` | Prints the HTML to PDF with the pre-installed Playwright Chromium |
+
+## How it works
+
+1. A new monthly PDF appears in Drive. Its text is read with the Drive connector
+   (`read_file_content`), saved to a scratch file, and converted with
+   `python3 normalize_drive_text.py scratch.txt` into `data/raw/<yyyy-mm>.txt`
+   (the month is read from the `Period ...` line).
+2. `python3 parse_dcm.py` discovers every `data/raw/<yyyy-mm>.txt`, writes
+   `data/<yyyy-mm>.json` and `data/recon_exceptions.json`, and keeps all asserts.
+3. `python3 check_period.py YYYY-MM` (exit 0 only if the data exists and the
+   period is newer than `config/baseline.txt`).
+4. `python3 build_report.py [--month YYYY-MM]` uses the newest month (or the
+   given one) and the three months ending there. Month names, labels, the
+   quarter label, scenarios and all narrative figures are computed from
+   `data/*.json`. Findings are computed (largest account movers, discount and
+   incentive rate, gross margin, depreciation, equity and depreciation
+   roll-forward, receivables, HO clearing and cash, fixed-asset changes,
+   integrity tests), ranked by the rupiah size of the figure discussed, with
+   severity from that size relative to the month's net revenue; a finding that
+   cannot be computed for the month is omitted. Assumptions (Rp 400 juta target,
+   +25% volume, 8-year equipment life, 5% cash yield, policy caps) are read from
+   `config/targets.json`; the target scenarios are skipped if the month already
+   exceeds the target.
+5. Main-dealership figures (`data/raw/group_inhouse.json`) are optional. If the
+   chosen month has no entry, the intercompany findings and dealer references are
+   omitted and the report says so in one line; nothing is carried over.
 
 ## Rebuild
 
 ```bash
-python3 parse_dcm.py      # data/raw/*.txt -> data/*.json, asserts every subtotal to the rupiah
-python3 build_report.py   # -> out/report.html, out/metrics.json
-node render_pdf.js        # -> out/report.pdf
+python3 parse_dcm.py                       # data/raw/*.txt -> data/*.json, asserts every subtotal to the rupiah
+python3 build_report.py --month 2026-09    # -> out/report.html, out/metrics.json (omit --month for the newest)
+node render_pdf.js                         # -> out/report.pdf (print of the HTML; not regenerated by the pipeline above)
 ```
 
 `parse_dcm.py` asserts, for every month, that leaf accounts re-add to sales,
-discounts, cost of sales, selling, G&A, opex and net result, that the balance
-sheet balances, and that accumulated depreciation moves by the depreciation
-charged. `build_report.py` asserts that the ledger table it prints re-adds to
-opex for September, the quarter and the year to date, and that the year-to-date
-and since-opening losses tie to the balance sheet.
+discounts, cost of sales, selling, G&A, opex and net result, and that the balance
+sheet balances; it records (does not hide) depreciation and equity roll-forward
+gaps in `data/recon_exceptions.json`. `build_report.py` asserts that the ledger
+table re-adds to opex for each of the three months, the window and the year to
+date; the year-to-date profit against the balance sheet is an integrity-table row.
+
+## Regression test
+
+After any change to the scripts: `python3 -I parse_dcm.py && python3 -I
+build_report.py --month 2026-09`, then `git diff --stat -- out/metrics.json
+data/2025-*.json data/2026-*.json data/recon_exceptions.json` must be empty.
+`out/report.html` may differ only where the hand-written text was replaced by
+computed text (and the report date). Run on 2026-11-09 this held: data and
+`metrics.json` identical (its month keys are the English abbreviations of the
+three months, `sep/aug/jul` for September). A synthetic 2026-10 statement (never committed; amounts perturbed
+with all subtotals recomputed) built without error, with Oktober 2026 and
+Agustus – Oktober 2026 in the title and labels.
+`normalize_drive_text.py` was checked against the Drive text of the August and
+September 2026 PDFs: output byte-identical to the committed raw text, and identical
+`data/2026-08.json` / `data/2026-09.json`.
+
+## Known limits
+
+- `out/report.pdf` is not regenerated by the Python steps; it still shows the Sep 2026 report until `render_pdf.js` is run.
+- The `Drive text -> raw` normalizer was verified on two months only; a changed connector text format would need the normalizer revisited. It refuses to write if the period is not one month or a statement is missing.
+- `parse_dcm.py` classifies accounts by their ACCURATE names; a new account type (for example a new fixed-asset class) fails an assert rather than being guessed.
+- The report needs three consecutive months ending at the chosen month, positive gross margin and depreciation; otherwise it stops with a message.
+- The dealer reference, DCA comparison and recommendation wording are judgement text: the DCA comparison table (typed numbers) was removed; policy figures come from `config/targets.json`.
+- Dealer figures for Oct 2026 and later must be typed into `data/raw/group_inhouse.json` by hand; without them that part of the report is simply omitted.
+- Findings are ranked by rupiah size of the figure discussed (balances such as cash can outrank the monthly result); the ranking is mechanical, not a materiality judgement.
