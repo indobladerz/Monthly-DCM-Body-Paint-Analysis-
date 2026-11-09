@@ -24,6 +24,6 @@
   "mover_min_pct_of_opex": 0.02,
   "intercompany_tolerance_rp": 1000,
   "rate_spread_tolerance": 0.005,
-  "max_findings": 12
+  "max_findings": 16
  }
 }
