@@ -1210,6 +1210,32 @@ _metrics = {_k[0]: S, _k[1]: A, _k[2]: J, f'ytd_{YEAR}': YTD, 'since_opening': I
             'intercompany': ({'hutang_ho_unit': S['hutang_ho'], 'piutang_bp_at_ho': ho_recv_bp, 'gap': ic_gap, 'clearing_unit': S['ho_clearing'], 'clearing_ho': G['pembukuan_pusat_cabang_bp'], 'clearing_gap': clearing_gap} if G else None),
             'recon_exceptions': RECON}
 json.dump(_metrics, open(os.path.join(HERE, 'out', 'metrics.json'), 'w'), indent=1, default=str)
+
+# ---- data for the compact Gmail-safe e-mail (render_email.py). Every figure is formatted here with the same helpers as the
+# report, so the e-mail can never carry a number the report does not.
+def _plain(s):
+    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', html.unescape(str(s)))).strip()
+_chgp = lambda key: pct(chg(A[key], S[key]))
+_row_defs = [('Penjualan bruto', 'sales', rp), ('Diskon penjualan', 'disc', rp), ('Pendapatan neto', 'net_sales', rp), ('Harga pokok penjualan', 'cogs', rp),
+             ('Laba kotor', 'gp', rp), ('Margin kotor', 'gm', p1), ('Beban operasi', 'opex', rp), ('Penyusutan (dalam beban operasi)', 'dep', rp),
+             ('EBITDA', 'ebitda', rp), ('Laba (rugi) bersih', 'net', rp)]
+_email = {
+    'period': CHOSEN, 'month_label': MLABEL[MS], 'window_label': QLABEL, 'year': YEAR,
+    'subject': f'Tinjauan Keuangan PT DCM Body Paint — {MLABEL[MS]}',
+    'labels': [SHJ, SHA, SHS], 'dealer_data_used': bool(G),
+    'kpis': [
+        {'label': 'Penjualan bruto', 'value': rp(S['sales']), 'sub': f'{_chgp("sales")} vs {SHA}'},
+        {'label': 'Margin kotor', 'value': p1(S['gm']), 'sub': f'{p1(A["gm"])} di {SHA}'},
+        {'label': 'Laba (rugi) bersih', 'value': rp(S['net']), 'sub': f'{rp(A["net"])} di {SHA}'},
+        {'label': f'Laba (rugi) {YEAR} berjalan', 'value': rp(YTD['net']), 'sub': f'sejak laporan pertama: {rp(INC["net"])}'},
+    ],
+    'rows': [{'label': lab, 'values': [fn(J[k]), fn(A[k]), fn(S[k])]} for lab, k, fn in _row_defs],
+    'findings': [{'sev': f['sev'], 'area': _plain(f['area']), 'title': _plain(f['title']), 'body': _plain(f['body']), 'evidence': _plain(f['evidence'])} for f in FINDINGS],
+    'recs': [{'title': _plain(t), 'body': _plain(b), 'impact': _plain(im)} for t, b, im in RECS],
+    'scenarios': [{'code': c, 'name': _plain(n), 'gross': rp(g), 'gm': p1(gm), 'opex': rp(ox), 'net': rp(net)} for c, n, g, gm, ox, net, _note in SCEN_RES],
+    'integrity': [{'name': _plain(n), 'ok': bool(ok)} for n, ok, _note, _g in INTEG],
+}
+json.dump(_email, open(os.path.join(HERE, 'out', 'email_data.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 print('wrote', out, len(HTML), 'bytes; month', CHOSEN, '| window', QLABEL, '| dealer data', 'dipakai' if G else 'TIDAK dipakai')
 print(f"{NS} net {rp(S['net'])} | opex {rp(S['opex'])} | dep {rp(S['dep'])} | EBITDA {rp(S['ebitda'])} | BE now {rp(be_gross_now)} | BE alt {rp(be_gross_8y)} | cash BE {rp(cash_be_gross)} | equip end {equip_end}" + (f" | ic gap {rp(ic_gap)} | clearing gap {rp(clearing_gap)}" if G else ''))
 for r in SCEN_RES:

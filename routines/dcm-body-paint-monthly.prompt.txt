@@ -1,0 +1,72 @@
+DCM BODY PAINT — MONTHLY REVIEW: OPERATING INSTRUCTIONS FOR THE SCHEDULED RUN
+==============================================================================
+You run unattended, once a week. Nobody is watching. Follow the steps in order, in this one session.
+Everything reader-facing is in Indonesian. Silence is the normal outcome: most firings end at STEP 3 or STEP 4
+having sent nothing. Never send a "nothing to report" message.
+
+Fixed facts
+- Repository: indobladerz/Monthly-DCM-Body-Paint-Analysis- (already cloned; work in its root, run Python with `python3 -I`).
+- Drive account: vwilliam@dutacendana.com. Statements folder: "Laporan Keuangan DCM BP 2026",
+  id 1aIiBImkPam11fKjHbwxIGh7TtNJe4vzU, inside "Laporan Keuangan PT DCM Body Paint",
+  id 19mNxYCQPqNXzwjPeuDcDpLDnjlSilwfL (a folder for a later year, "Laporan Keuangan DCM BP <year>", will appear there).
+- Recipients (all in To, no cc/bcc), exactly these six: vwilliam@toyotadutacendana.com, adh@toyotadutacendana.com,
+  accspv.dca@gmail.com, bm@toyotadutacendana.com, sm.bp@toyotadutacendana.com, sm.jts.dca@gmail.com.
+- Failure notes go ONLY to vwilliam@toyotadutacendana.com.
+- Allowed tools: Bash, Read, Write, Edit, Glob, Grep, Gmail search/get/send, Google Drive search/get_file_metadata/read_file_content/
+  download_file_content. Never call: Agent/Task/Launch agent, TaskCreate/TaskUpdate/TaskList/TaskGet/TaskOutput/TaskStop, Workflow,
+  Artifact, any Drive tool that writes/moves/shares/deletes, or Bash with run_in_background. Never commit, push, or touch scheduled tasks.
+  If a needed tool is gated or missing, stop and name it in your last line; never work around it.
+
+STEP 0 — Orientation
+Read README.md and config/baseline.txt (one line, YYYY-MM = last period already analysed and emailed). Note today's date.
+List data/*.json and note the newest period already parsed (LATEST_DATA).
+
+STEP 1 — Find the statements in Drive (read-only)
+1. search_files with query  parentId = '1aIiBImkPam11fKjHbwxIGh7TtNJe4vzU' and mimeType = 'application/pdf'  (pageSize 100).
+2. search_files with query  parentId = '19mNxYCQPqNXzwjPeuDcDpLDnjlSilwfL' and mimeType = 'application/vnd.google-apps.folder'
+   ; for any folder whose title has a year later than 2026, search its PDFs the same way.
+3. Keep only PDFs whose upper-cased title contains BODYPAINT (or BODY PAINT) and does NOT contain INHOUSE or IN HOUSE.
+   Titles are inconsistent (RUGILABA / RUGI LABA, "PT." / "PT"): read the Indonesian month name (JANUARI FEBRUARI MARET APRIL MEI JUNI
+   JULI AGUSTUS SEPTEMBER OKTOBER NOVEMBER DESEMBER) and the 4-digit year from the title. Ignore any file you cannot map to one period.
+4. NEWEST = the latest period among these files.
+
+STEP 2 — Is there anything new?
+If NEWEST <= the period in config/baseline.txt: STOP. Send nothing. (Today this is the expected outcome: September 2026 is the baseline.)
+
+STEP 3 — Was it already sent?
+The subject for period P is  "Tinjauan Keuangan PT DCM Body Paint — <Bulan> <yyyy>"  (em dash, Indonesian month name capitalised, e.g. Oktober 2026).
+search_threads on sent mail for that exact subject. If a sent message with that subject exists: STOP, send nothing.
+
+STEP 4 — Fetch every statement that is not yet in data/
+Periods needed: every month after LATEST_DATA up to and including NEWEST. Each must exist in the Drive list from STEP 1; if one is missing,
+go to FAILURE (name the missing month). For each needed period, oldest first:
+  a. read_file_content with the file id. Write the returned content, complete and unchanged, to /tmp/stmt-<yyyy-mm>.txt with Write.
+     Do not summarise, trim, reformat or retype amounts; copy the returned text exactly.
+  b. python3 -I normalize_drive_text.py /tmp/stmt-<yyyy-mm>.txt   (writes data/raw/<yyyy-mm>.txt; it refuses if the period is not one month
+     or a statement is missing). Check the period it reports equals the period in the file title. If it refuses: FAILURE.
+
+STEP 5 — Parse and reconcile
+python3 -I parse_dcm.py   (no arguments). Every assert must pass. Any assertion error: FAILURE. Never edit parse_dcm.py or an amount to make it pass.
+python3 -I check_period.py <NEWEST as YYYY-MM> must exit 0 (exit 2 = not newer than baseline: STOP silently; exit 1 = data missing: FAILURE).
+
+STEP 6 — Build
+python3 -I build_report.py --month <NEWEST as YYYY-MM>   then   python3 -I render_email.py
+Both must exit 0. out/email.html must exist, be under 95,000 bytes (render_email.py enforces it) and its LAST line must be a sentinel of the form
+<!-- dcm-bp v1 YYYY-MM <16 hex> -->  with YYYY-MM equal to NEWEST. Read out/email_subject.txt: it must equal the STEP 3 subject. Otherwise FAILURE.
+Dealer (main dealership) figures are optional; if they are missing the report omits that part and says so. That is not a failure.
+
+STEP 7 — Send
+Read out/email.html IN FULL (one page). send_message to the six recipients, subject = the contents of out/email_subject.txt,
+HTML body = the exact, complete contents of out/email.html. No attachments, no PDF, never call a Drive tool.
+Before sending, confirm the last line of the body you are about to send is the sentinel from STEP 6. If you cannot paste the whole file,
+send nothing: go to FAILURE.
+Never retype, shorten, summarise or "improve" the body. After sending, run search_threads on the subject once to confirm one sent message exists.
+
+STEP 8 — Finish
+Reply with at most four lines: period sent, subject, recipient count, and one line stating whether any tool call was gated or prompted.
+
+FAILURE
+Used only when a NEW statement exists (STEP 2 passed) but the report could not be built or sent. First search sent mail for the subject
+"Tinjauan Body Paint <Bulan> <yyyy> gagal dibuat"; if one exists, stay silent. Otherwise send ONE short Indonesian note to
+vwilliam@toyotadutacendana.com only, with that subject, saying which month's statement was found, which step failed and the exact error
+(one or two lines). Never send a partial, reconstructed or estimated report to anyone. End by naming any gated tool.

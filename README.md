@@ -51,6 +51,8 @@ sales report and should not carry it.
 | `check_period.py` | Offline guard: does `data/<period>.json` exist, and is the period newer than `config/baseline.txt` |
 | `config/targets.json` | Scenario target, policy assumptions and analysis thresholds (not report data) |
 | `config/baseline.txt` | Last period already analysed (`2026-09`) |
+| `render_email.py` | Lays out `out/email_data.json` (written by `build_report.py`) as a compact Gmail-safe e-mail, `out/email.html`: tables and inline styles only, no charts, under 95 KB, last line is a sentinel `<!-- dcm-bp v1 YYYY-MM hash -->`; also writes `out/email_subject.txt` |
+| `routines/dcm-body-paint-monthly.prompt.txt` | The step-by-step procedure the weekly scheduled run follows (Drive check, dedupe against sent mail, parse, build, send) |
 | `render_pdf.js` | Prints the HTML to PDF with the pre-installed Playwright Chromium |
 
 ## How it works
@@ -75,7 +77,13 @@ sales report and should not carry it.
    +25% volume, 8-year equipment life, 5% cash yield, policy caps) are read from
    `config/targets.json`; the target scenarios are skipped if the month already
    exceeds the target.
-5. Main-dealership figures (`data/raw/group_inhouse.json`) are optional. If the
+5. `python3 render_email.py` turns the computed figures and findings into
+   `out/email.html`. The report itself (`out/report.html`, 122 KB with inline
+   charts) is too large and too chart-heavy for Gmail, so the e-mail carries the
+   headline figures, the three-month table, the ranked findings, the
+   recommendations, the scenarios and the integrity result, without charts.
+   The e-mail is sent as the HTML body; no attachment, no PDF.
+6. Main-dealership figures (`data/raw/group_inhouse.json`) are optional. If the
    chosen month has no entry, the intercompany findings and dealer references are
    omitted and the report says so in one line; nothing is carried over.
 

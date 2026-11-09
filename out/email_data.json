@@ -1,0 +1,329 @@
+{
+ "period": "2026-09",
+ "month_label": "September 2026",
+ "window_label": "Juli – September 2026",
+ "year": 2026,
+ "subject": "Tinjauan Keuangan PT DCM Body Paint — September 2026",
+ "labels": [
+  "Jul",
+  "Agu",
+  "Sep"
+ ],
+ "dealer_data_used": true,
+ "kpis": [
+  {
+   "label": "Penjualan bruto",
+   "value": "248,1",
+   "sub": "+18,3% vs Agu"
+  },
+  {
+   "label": "Margin kotor",
+   "value": "42,6%",
+   "sub": "45,0% di Agu"
+  },
+  {
+   "label": "Laba (rugi) bersih",
+   "value": "(89,7)",
+   "sub": "(172,2) di Agu"
+  },
+  {
+   "label": "Laba (rugi) 2026 berjalan",
+   "value": "(948,9)",
+   "sub": "sejak laporan pertama: (1.352,5)"
+  }
+ ],
+ "rows": [
+  {
+   "label": "Penjualan bruto",
+   "values": [
+    "252,0",
+    "209,8",
+    "248,1"
+   ]
+  },
+  {
+   "label": "Diskon penjualan",
+   "values": [
+    "18,1",
+    "18,1",
+    "20,3"
+   ]
+  },
+  {
+   "label": "Pendapatan neto",
+   "values": [
+    "234,0",
+    "191,6",
+    "227,8"
+   ]
+  },
+  {
+   "label": "Harga pokok penjualan",
+   "values": [
+    "141,0",
+    "105,4",
+    "130,8"
+   ]
+  },
+  {
+   "label": "Laba kotor",
+   "values": [
+    "92,9",
+    "86,3",
+    "97,0"
+   ]
+  },
+  {
+   "label": "Margin kotor",
+   "values": [
+    "39,7%",
+    "45,0%",
+    "42,6%"
+   ]
+  },
+  {
+   "label": "Beban operasi",
+   "values": [
+    "213,8",
+    "257,9",
+    "186,3"
+   ]
+  },
+  {
+   "label": "Penyusutan (dalam beban operasi)",
+   "values": [
+    "113,8",
+    "113,8",
+    "114,0"
+   ]
+  },
+  {
+   "label": "EBITDA",
+   "values": [
+    "(7,4)",
+    "(58,4)",
+    "24,3"
+   ]
+  },
+  {
+   "label": "Laba (rugi) bersih",
+   "values": [
+    "(121,2)",
+    "(172,2)",
+    "(89,7)"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "sev": "TINGGI",
+   "area": "Kas dan pendanaan",
+   "title": "Kas Rp 1,02 miliar (naik Rp 954,5 juta sejak Juni); Hutang HO naik Rp 323,1 juta",
+   "body": "Kas dan bank Rp 69,0 juta (Juni) menjadi Rp 1.023,5 juta (September); bunga bank September Rp 88. Rekening Pembukuan Pusat HO Rp 8,58 miliar bertambah Rp 71,8 juta sejak Juni; bersama Hutang HO, pendanaan HO Rp 9,27 miliar disajikan sebagai kliring, bukan pinjaman atau modal. Pada bunga ilustratif 5% per tahun, kas unit bernilai Rp 4,3 juta per bulan. Dealer utama memegang deposito Rp 30 miliar.",
+   "evidence": "Neraca, Kas dan Bank, Hutang Afiliasi, Piutang Transaksi Cabang; Neraca Inhouse PT DCM."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Integritas pembukuan",
+   "title": "Akun kliring GR/IR Rp 540,0 juta setara 4,1 bulan harga pokok; persediaan suku cadang bersaldo negatif Rp (33,7) juta",
+   "body": "GR/IR naik dari Rp 436,4 juta (Juli) ke Rp 540,0 juta (September); GR/IR suku cadang Rp 386,4 juta. Persediaan negatif menunjukkan barang dijual sebelum penerimaan dan tagihannya dicatat.",
+   "evidence": "Neraca, GR/IR Account dan Persediaan."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Integritas pembukuan",
+   "title": "Saldo antar perusahaan tidak cocok: selisih Rp 500,0 juta pada hutang HO dan Rp 194,8 juta pada rekening pembukuan pusat",
+   "body": "Unit mencatat Hutang HO Rp 692,7 juta, sedangkan dealer utama mencatat Piutang PT DCM Body Paint Rp 1.192,7 juta. Selisih per bulan (data dealer yang tersedia): Juli Rp 0,0 juta, Agustus Rp 500,0 juta, September Rp 500,0 juta. Rekening Pembukuan Pusat HO di unit Rp 8,58 miliar, di dealer utama Rp 8,39 miliar dan tidak bergerak di Juli–September.",
+   "evidence": "Neraca PT DCM Body Paint dan Neraca Inhouse PT DCM, September."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Struktur biaya",
+   "title": "Penyusutan mencapai 61% dari beban operasional dan 50% dari pendapatan neto",
+   "body": "Rp 114,0 juta dari opex September Rp 186,3 juta adalah penyusutan: peralatan bengkel Rp 93,0 juta, gedung Rp 16,5 juta, peralatan kantor Rp 4,4 juta. Di luar penyusutan, unit menutup biaya tunainya: EBITDA September Rp 24,3 juta (Juli Rp (7,4) juta, Agustus Rp (58,4) juta). Titik impas penuh memerlukan penjualan bruto Rp 477 juta per bulan, 92% di atas September.",
+   "evidence": "Buku besar Beban Umum dan Administrasi; Neraca, Aktiva Tetap dan Akumulasi Penyusutan."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Modal kerja",
+   "title": "Piutang jasa naik 79,4% dalam tiga bulan menjadi Rp 235,0 juta (28 hari penjualan)",
+   "body": "Piutang bergerak Rp 131,0 → 158,0 → 235,0 juta lebih cepat dari penjualan. Laporan tidak menyajikan umur piutang maupun rincian per perusahaan asuransi. Uang muka pelanggan turun dari Rp 32,6 juta menjadi Rp 15,2 juta.",
+   "evidence": "Neraca, Piutang Usaha dan Uang Muka Penjualan."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Aset tetap",
+   "title": "Basis aset Rp 8,65 miliar berputar 0,34 kali setahun; peralatan bengkel disusutkan 4 tahun",
+   "body": "Peralatan bengkel Rp 4,47 miliar dibebankan 25% per tahun (umur 4 tahun), gedung Rp 3,97 miliar 5% per tahun (umur 20 tahun). Bila umur ekonomis oven dan booth 8 tahun, beban peralatan turun dari Rp 93,0 juta menjadi Rp 46,5 juta per bulan dan titik impas turun ke Rp 358 juta penjualan bruto. Ini perubahan estimasi non-kas yang memerlukan bukti teknis serta pandangan auditor dan konsultan pajak, bukan alat untuk mengecilkan rugi. Tanah tidak tercatat di pembukuan unit (lihat §4).",
+   "evidence": "Neraca, Nilai histori dan Akumulasi Penyusutan; Laba Rugi, Biaya Penyusutan."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Profitabilitas",
+   "title": "Rugi di ketiga bulan: Rp 121,2 juta di Juli, Rp 172,2 juta di Agustus, Rp 89,7 juta di September",
+   "body": "Juli – September 2026: rugi bersih Rp 383,1 juta atas penjualan bruto Rp 709,8 juta. Sejak awal tahun, rugi bersih Rp 948,9 juta. Ekuitas unit negatif Rp 1,35 miliar pada September (laporan pertama: September 2025), tanpa modal disetor. September adalah bulan dengan hasil terbaik ke-4 dari 9 bulan tahun ini (terbaik: Mei, rugi Rp 77,3 juta). Pendapatan jasa September Rp 151,7 juta adalah yang tertinggi sejak laporan pertama.",
+   "evidence": "Laba Rugi PT DCM Body Paint, September 2025 – September 2026; Neraca September 2026, Ekuitas."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Beban operasional",
+   "title": "Pergerakan akun terbesar Agustus → September: Pemeliharaan peralatan turun Rp 67,0 juta",
+   "body": "Pemeliharaan peralatan turun Rp 67,0 juta dari Rp 67,0 juta (Agustus) ke Rp 0,0 juta (September), tidak ada lagi di September; Insentif karyawan naik Rp 4,3 juta dari Rp 20,7 juta (Agustus) ke Rp 25,0 juta (September) (+20,8%). Total opex turun Rp 71,5 juta (-27,7%) dalam bulan yang sama.",
+   "evidence": "Buku besar Beban Umum dan Administrasi serta Beban Penjualan, Agustus–September."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Aset tetap",
+   "title": "Harga perolehan aset tetap berubah dalam jendela: September: Bangunan bertambah Rp 41,6 juta",
+   "body": "Perubahan: September: Bangunan bertambah Rp 41,6 juta. Dampak pada beban: beban penyusutan bangunan Rp 16,4 juta di Juni menjadi Rp 16,5 juta di September. Perubahan antar kelompok perlu didukung dokumen reklasifikasi; penambahan perlu dicocokkan dengan faktur dan tanggal siap pakai.",
+   "evidence": "Neraca, Nilai histori, Juni 2026 – September 2026."
+  },
+  {
+   "sev": "TINGGI",
+   "area": "Beban SDM",
+   "title": "Insentif Rp 25,0 juta (10,1% dari penjualan bruto) setara 92% dari gaji pokok Rp 27,3 juta",
+   "body": "Insentif berjalan 11,6%, 9,9% dan 10,1% dari penjualan bruto di Juli, Agustus dan September (Rp 29,3 → 20,7 → 25,0 juta), dibayarkan pada bulan merugi tanpa kaitan dengan laba.",
+   "evidence": "Buku besar Beban Umum dan Administrasi, Biaya Insentif dan Biaya Gaji."
+  },
+  {
+   "sev": "RENDAH",
+   "area": "Margin",
+   "title": "Margin kotor gabungan turun 2,4 poin persentase ke 42,6% di September",
+   "body": "Margin kotor 45,0% di Agustus menjadi 42,6% di September; pada pendapatan neto September selisih itu bernilai Rp 5,5 juta laba kotor. Margin jasa 56,1% → 55,6%, suku cadang 28,7% → 23,3%; suku cadang 39% dari penjualan dan 22% dari laba kotor.",
+   "evidence": "Laba Rugi, Laba Kotor per sumber."
+  },
+  {
+   "sev": "RENDAH",
+   "area": "Pendapatan",
+   "title": "Penjualan bruto turun 1,6% dalam kuartal ke Rp 248,1 juta: jasa +18,9%, suku cadang -22,5%",
+   "body": "Pendapatan jasa naik 18,9% dalam kuartal ke Rp 151,7 juta (margin 55,6% → 56,1% → 55,6%). Suku cadang turun 22,5% (Rp 124,4 → 80,3 → 96,4 juta) dan marginnya 24,5% → 28,7% → 23,3%. Harga pokok jasa (bagi hasil tim pengerjaan pihak ketiga) tetap 43,9%–44,4% dari pendapatan jasa neto di setiap bulan: pola bagi hasil tetap, bukan biaya yang mengikuti efisiensi.",
+   "evidence": "Laba Rugi, Penjualan dan Harga Pokok Penjualan per sumber."
+  },
+  {
+   "sev": "RENDAH",
+   "area": "Diskon",
+   "title": "Tingkat diskon naik dari 7,2% (Juli) ke 8,2% (September) dari penjualan bruto",
+   "body": "Diskon September Rp 20,3 juta: jasa 10,3% → 11,9% → 10,4%, suku cadang 3,9% → 3,4% → 4,7%. Diskon tiga bulan Rp 56,5 juta setara 20% dari laba kotor periode itu. Tidak ada matriks persetujuan diskon per jenis pelanggan dalam laporan.",
+   "evidence": "Laba Rugi, Potongan Penjualan."
+  },
+  {
+   "sev": "RENDAH",
+   "area": "Integritas pembukuan",
+   "title": "1 uji rekonsiliasi pembukuan tidak cocok: Mutasi ekuitas (ekuitas awal + laba rugi bulan = ekuitas akhir)",
+   "body": "Mutasi ekuitas (ekuitas awal + laba rugi bulan = ekuitas akhir): Juli +Rp 150.270 dan Agustus -Rp 150.275 di luar laba rugi (saling membalik, tanpa jurnal penjelas). September cocok.",
+   "evidence": "Neraca dan Laba Rugi, uji integritas §5."
+  }
+ ],
+ "recs": [
+  {
+   "title": "Isi kapasitas dari jaringan Toyota DCM sendiri, bukan dari belanja pemasaran",
+   "body": "Dealer utama menjual unit Rp 18,6 miliar dan jasa serta suku cadang Rp 1.294 juta di September; body & paint hanya Rp 248,1 juta, 1,2% dari penjualan grup. Jadikan setiap unit yang diserahkan sebagai pelanggan bengkel: rujukan rekanan asuransi saat serah terima, voucer perbaikan tahun pertama, booking silang oleh service advisor bengkel umum, dan akun armada. Titik impas penuh pada basis biaya saat ini adalah penjualan bruto Rp 477 juta per bulan (+92% dari September); setiap tambahan Rp 100 juta penjualan bruto menambah laba sekitar Rp 39,1 juta karena biaya tunai hampir seluruhnya tetap.",
+   "impact": "Target: Rp 400 juta per bulan (skenario D: hasil bulanan Rp (28,6) juta), titik impas penuh Rp 477 juta."
+  },
+  {
+   "title": "Tinjau umur ekonomis oven dan booth bersama auditor dan konsultan pajak",
+   "body": "Seluruh peralatan bengkel Rp 4,47 miliar disusutkan 4 tahun (25% per tahun). Bila oven, booth dan peralatan berat dipisahkan dan disusutkan 8 tahun sesuai umur teknisnya, beban turun Rp 46,5 juta per bulan dan titik impas turun ke Rp 358 juta. Perubahan ini non-kas, memerlukan dasar teknis (spesifikasi pabrikan, jadwal pemeliharaan) dan konsistensi dengan kebijakan grup; jangan dipakai hanya untuk memperkecil rugi.",
+   "impact": "Dampak: ≈ Rp 46,5 juta per bulan pada laba pembukuan, nol pada kas (skenario E: Rp 17,9 juta)."
+  },
+  {
+   "title": "Ubah skema bagi hasil pihak ketiga dan insentif agar mengikuti laba, bukan penjualan",
+   "body": "Harga pokok jasa 44,4% dari pendapatan jasa neto, sementara insentif berjalan 10,1% dari penjualan bruto, keduanya dibayar penuh pada bulan rugi. Terapkan tingkatan bagi hasil berbasis volume (40% hingga Rp 150 juta jasa per bulan, 45% di atasnya), biaya pemakaian booth/oven yang dipotong dari bagi hasil, klausul pengerjaan ulang, dan insentif yang dibayar dari EBITDA positif dengan batas 8% dari penjualan bruto.",
+   "impact": "Dampak: ≈ Rp 6,0 juta (bagi hasil ke 40%) + Rp 5,1 juta (insentif ke 8%) per bulan pada volume September."
+  },
+  {
+   "title": "Perbaiki penetapan harga pokok suku cadang dan tetapkan margin dasar",
+   "body": "Margin suku cadang 24,5% → 28,7% → 23,3% dalam tiga bulan; persediaan suku cadang negatif Rp (33,7) juta dan GR/IR suku cadang Rp 386,4 juta menunjukkan barang dijual sebelum penerimaan dan tagihannya dicatat. Cocokkan GR/IR dengan faktur dealer utama setiap bulan, pakai harga transfer yang disepakati, tetapkan margin dasar suku cadang 29% per pekerjaan dan terapkan matriks diskon (batas gabungan 7% dari penjualan bruto; September: 8,2%).",
+   "impact": "Dampak: ≈ Rp 4,9 juta per bulan (margin suku cadang kembali ke level Agustus) + Rp 2,9 juta dari disiplin diskon."
+  },
+  {
+   "title": "Rapikan pendanaan HO dan kas berlebih, lalu rekonsiliasi saldo antar perusahaan",
+   "body": "Pindahkan kas yang tidak dibutuhkan (menyisakan sekitar satu bulan opex tunai, Rp 72 juta) ke kantor pusat untuk melunasi Hutang HO Rp 692,7 juta, atau tempatkan dalam deposito. Catat pendanaan belanja modal Rp 8,58 miliar sebagai pinjaman antar perusahaan atau penyertaan modal dengan biaya bunga internal, agar manajer unit dinilai atas modal yang dipakainya. Rekonsiliasi dan selesaikan selisih Rp 500,0 juta (Hutang HO vs piutang di dealer utama) dan Rp 194,8 juta (pembukuan pusat) sebelum tutup buku.",
+   "impact": "Dampak: ≈ Rp 4,3 juta per bulan pendapatan bunga pada tingkat grup (5% per tahun, ilustratif)."
+  },
+  {
+   "title": "Tahan opex tunai di level pembanding dan kendalikan pos sekali pakai",
+   "body": "Opex tunai rata-rata Januari–Juni Rp 65,1 juta per bulan; Juli Rp 100,0 juta, Agustus Rp 144,0 juta, September Rp 72,3 juta. Tetapkan plafon Rp 65 juta per bulan dan wajibkan persetujuan tertulis untuk pos di atas Rp 5 juta.",
+   "impact": "Dampak: Rp 40,4 juta per bulan di atas pembanding pada rata-rata tiga bulan terakhir."
+  }
+ ],
+ "scenarios": [
+  {
+   "code": "A",
+   "name": "September 2026 sesuai laporan",
+   "gross": "248,1",
+   "gm": "42,6%",
+   "opex": "186,3",
+   "net": "(89,7)"
+  },
+  {
+   "code": "B",
+   "name": "Volume sama, margin kotor kembali ke level Agustus",
+   "gross": "248,1",
+   "gm": "45,0%",
+   "opex": "186,3",
+   "net": "(84,2)"
+  },
+  {
+   "code": "C",
+   "name": "Volume +25% dari rujukan dealer, margin & opex September",
+   "gross": "310,1",
+   "gm": "42,6%",
+   "opex": "186,3",
+   "net": "(65,5)"
+  },
+  {
+   "code": "D",
+   "name": "Target Rp 400 juta/bulan, margin Agustus, opex tunai +10%",
+   "gross": "400,0",
+   "gm": "45,0%",
+   "opex": "193,6",
+   "net": "(28,6)"
+  },
+  {
+   "code": "E",
+   "name": "Skenario D + umur oven/booth 8 tahun",
+   "gross": "400,0",
+   "gm": "45,0%",
+   "opex": "147,1",
+   "net": "17,9"
+  }
+ ],
+ "integrity": [
+  {
+   "name": "Neraca seimbang (Aktiva = Kewajiban + Ekuitas)",
+   "ok": true
+  },
+  {
+   "name": "Mutasi ekuitas (ekuitas awal + laba rugi bulan = ekuitas akhir)",
+   "ok": false
+  },
+  {
+   "name": "Akun rincian berjumlah sama dengan subtotal laba rugi",
+   "ok": true
+  },
+  {
+   "name": "Mutasi akumulasi penyusutan = beban penyusutan yang dibukukan",
+   "ok": true
+  },
+  {
+   "name": "Tarif penyusutan konsisten per kelompok aset",
+   "ok": true
+  },
+  {
+   "name": "Saldo antar perusahaan cocok dengan dealer utama",
+   "ok": false
+  },
+  {
+   "name": "Akun kliring bersaldo wajar dan persediaan tidak negatif",
+   "ok": false
+  },
+  {
+   "name": "Laba tahun berjalan di neraca = jumlah laba rugi bulanan tahun ini",
+   "ok": true
+  },
+  {
+   "name": "Ekuitas sejak laporan pertama = jumlah laba rugi bulanan + pengecualian penyusutan tercatat",
+   "ok": true
+  }
+ ]
+}
