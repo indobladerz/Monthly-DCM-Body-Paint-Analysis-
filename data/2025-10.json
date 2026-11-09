@@ -1,0 +1,103 @@
+{
+ "month": "2025-10",
+ "pl": {
+  "sales": {
+   "jasa": 2175565.0,
+   "sparepart": 0.0,
+   "lainnya": 0.0,
+   "total": 2175565.0
+  },
+  "discount": {
+   "jasa": 157065.0,
+   "sparepart": 0.0,
+   "lainnya": 0.0,
+   "total": 157065.0
+  },
+  "net_revenue": 2018500.0,
+  "cogs": {
+   "jasa": 896214.0,
+   "sparepart": 0.0,
+   "lainnya": 0.0,
+   "total": 896214.0
+  },
+  "gross_profit": 1122286.0,
+  "selling": 0.0,
+  "ga": 112895496.2,
+  "opex": 112895496.2,
+  "op_profit": -111773210.2,
+  "other_income": 9.94,
+  "other_expense": 11328.43,
+  "net_profit": -111784528.69
+ },
+ "selling_accounts": {},
+ "ga_accounts": {
+  "Biaya makan dan Minum Karyawan": 822900.0,
+  "Biaya Internet": 717957.0,
+  "Biaya Retribusi & legalitas Office": 0.0,
+  "Biaya Asuransi Gedung": 1766450.0,
+  "Biaya Keperluan Kantor Material": 5644000.0,
+  "Biaya Administrasi Bank": 30000.0,
+  "Biaya Penyusutan Gedung": 15835000.48,
+  "Biaya Penyusutan Peralatan Kantor": 4410392.65,
+  "Biaya Penyusutan Peralatan Bengkel": 83668796.07
+ },
+ "other_income_accounts": {
+  "Pendapatan Lain-Lain": 9.94
+ },
+ "other_expense_accounts": {
+  "Biaya Debit/Kredit Card": 10998.43,
+  "Biaya Lain-Lain": 330.0
+ },
+ "bs": {
+  "KAS & BANK": 10059216.51,
+  "KAS BESAR": 369000.0,
+  "Kas Besar Toyota": 369000.0,
+  "BANK": 9690216.51,
+  "Bank Toyota": 9690216.51,
+  "Toyota - Bank BCA 183.677.7787 (BP)": 9690216.51,
+  "Jumlah Kas dan Bank": 10059216.51,
+  "Jumlah Piutang Dagang": 0.0,
+  "Jumlah Persediaan": 0.0,
+  "PIUTANG": -8090788574.0,
+  "Piutang Transaksi Cabang": -8090788574.0,
+  "Pembukuan Pusat Cabang DCM HO": -8090788574.0,
+  "BIAYA DIBAYAR DIMUKA": 17664500.0,
+  "Asuransi Dibayar Dimuka": 17664500.0,
+  "Asuransi Gedung Dibayar Dimuka": 17664500.0,
+  "Jumlah Aktiva lancar lainnya": -8073124074.0,
+  "Jumlah Aktiva Lancar": -8063064857.49,
+  "AKTIVA TETAP": 8031806174.0,
+  "Aktiva Tetap Berwujud": 8031806174.0,
+  "Bangunan": 3800400115.45,
+  "Peralatan": 4231406058.55,
+  "Peralatan Kantor": 215303847.0,
+  "Peralatan Bengkel": 4016102211.55,
+  "Jumlah Nilai histori": 8031806174.0,
+  "AKUMULASI PENYUSUTAN": -207114569.26,
+  "Akumulasi Penyusutan Gedung": -31670000.96,
+  "Akumulasi Penyusutan Peralatan": -175444568.3,
+  "Akumulasi Penyusutan Peralatan Kantor": -8820785.3,
+  "Akumulasi Penyusutan Peralatan Bengkel": -166623783.0,
+  "Jumlah Akumulasi Penyusutan": -207114569.26,
+  "Jumlah Aktiva Tetap": 7824691604.74,
+  "Jumlah OTHER ASSETS": 0.0,
+  "Jumlah Aktiva": -238373252.75,
+  "Jumlah Hutang Dagang": 0.0,
+  "HUTANG": 15303106.0,
+  "UANG MUKA PENJUALAN": 7000000.0,
+  "Uang Muka Penjualan Service": 7000000.0,
+  "HUTANG AFILIASI": 7184857.0,
+  "Hutang HO": 7184857.0,
+  "PPN KELUARAN": 222035.0,
+  "PPN Keluaran - Service": 222035.0,
+  "GR/IR ACCOUNT": 896214.0,
+  "GR/IR - Bahan/OPL": 896214.0,
+  "Jumlah Kewajiban lancar lain": 15303106.0,
+  "Jumlah Kewajiban lancar": 15303106.0,
+  "Jumlah Kewajiban jangka panjang": 0.0,
+  "Jumlah Kewajiban": 15303106.0,
+  "Laba tahun ini": -253676358.75,
+  "Jumlah Ekuitas": -253676358.75,
+  "Jumlah Kewajiban dan Ekuitas": -238373252.75
+ }
+}

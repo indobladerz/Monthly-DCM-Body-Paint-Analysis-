@@ -1,0 +1,9 @@
+{
+ "_source": "LAPORAN NERACA & RUGILABA INHOUSE PT DCM (main dealership, PT Duta Cendana Mobilindo), Drive folder 'Laporan Keuangan DCM 2026', files 7/8/9 (Juli, Agustus, September 2026). Figures in Rupiah, transcribed from the ACCURATE statements.",
+ "jul": {"sales_gross": 18962766142, "sales_unit": 17608608522, "sales_sparepart": 833114622, "sales_service": 492448737, "net_revenue": 17293204955, "gross_profit": 1774489977, "opex": 1484204977, "net_before_tax": 1396237729.91,
+         "piutang_dcm_body_paint": 443664868, "pembukuan_pusat_cabang_bp": 8385416279, "deposito": 45000000000, "kas_bank_total": 61204428016.51, "pendapatan_bunga_deposito": 649590754, "equity": 163564082428.94},
+ "aug": {"sales_gross": 20590319829, "sales_unit": 19384268805, "sales_sparepart": 726512070, "sales_service": 455113249, "net_revenue": 18730185092, "gross_profit": 1581492267, "opex": 1475108501.24, "net_before_tax": 829989020.39,
+         "piutang_dcm_body_paint": 1084647433, "pembukuan_pusat_cabang_bp": 8385416279, "deposito": 30000000000, "kas_bank_total": 62266170787.90, "pendapatan_bunga_deposito": 499143835, "equity": 164398056447.33},
+ "sep": {"sales_gross": 19888446395, "sales_unit": 18559000665, "sales_sparepart": 799626121, "sales_service": 494056959, "net_revenue": 17883841712, "gross_profit": 1336317201, "opex": 1496019174, "net_before_tax": 291634756.18,
+         "piutang_dcm_body_paint": 1192722384, "pembukuan_pusat_cabang_bp": 8385416279, "deposito": 30000000000, "kas_bank_total": 71606381576.08, "pendapatan_bunga_deposito": 382128086, "equity": 164068177047.00}
+}

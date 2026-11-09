@@ -1,0 +1,23 @@
+[
+ {
+  "month": "2025-11",
+  "test": "akumulasi penyusutan vs beban penyusutan",
+  "bs_movement": 107184033.32999998,
+  "pl_charge": 108225700.0,
+  "gap": 1041666.6700000167
+ },
+ {
+  "month": "2026-07",
+  "test": "mutasi ekuitas (ekuitas awal + laba rugi = ekuitas akhir)",
+  "expected": -1090542905.84,
+  "booked": -1090392635.84,
+  "gap": 150270.0
+ },
+ {
+  "month": "2026-08",
+  "test": "mutasi ekuitas (ekuitas awal + laba rugi = ekuitas akhir)",
+  "expected": -1262584599.71,
+  "booked": -1262734874.71,
+  "gap": -150275.0
+ }
+]
